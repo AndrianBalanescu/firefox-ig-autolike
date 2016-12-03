@@ -1,0 +1,38 @@
+{
+
+	"applications": {
+	  "gecko": {
+		"id": "igautolike@storyteller.me",
+		"strict_min_version": "42.0",
+		"strict_max_version": "50.*"
+	  }
+	},
+
+  "manifest_version": 2,
+  "name": "IG Autolike",
+  "version": "0.1",
+
+  "description": "Instagram auto like extension for Firefox.",
+
+  "icons": {
+    "48": "icons/ig_logo.png"
+  },
+
+ "permissions": [
+    "activeTab",
+    "storage"
+  ],
+
+	"background": {
+    	"scripts": ["autolike.js"]
+  	},
+  "browser_action": {
+    "default_icon": {
+      "32": "icons/ig_logo.png"
+    }
+  },
+  "options_ui": {
+    "page": "html/options.html"
+  }
+
+}
