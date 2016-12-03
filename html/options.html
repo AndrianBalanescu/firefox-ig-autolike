@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <meta charset="utf-8">
-  </head>
 
-  <body>
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
 
     <form>
-        <label>Min time<input type="text" id="minTime" ></label>
-        
-        <label>Max time<input type="text" id="maxTime" ></label>
-        
+        <label for="minTime">Min like time: </label>
+        <input type="text" name="minTime" id="minTime">
+        <br>
+
+        <label for="maxTime">Max like time:</label>
+        <input type="text" name="maxTime" id="maxTime">
+        <br>
+
         <button type="submit">Save</button>
     </form>
 
     <script src="../options.js"></script>
 
-  </body>
+</body>
 
 </html>
