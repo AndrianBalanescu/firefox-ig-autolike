@@ -4,13 +4,13 @@
         "gecko": {
             "id": "igautolike@storyteller.me",
             "strict_min_version": "42.0",
-            "strict_max_version": "50.*"
+            "strict_max_version": "*"
         }
     },
 
     "manifest_version": 2,
     "name": "IG Autolike",
-    "version": "0.1",
+    "version": "0.1.2",
 
     "description": "Instagram auto like extension for Firefox.",
 
