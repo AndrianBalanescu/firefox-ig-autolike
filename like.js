@@ -1,4 +1,4 @@
-var likeElement = document.querySelector('.coreSpriteHeartOpen');
+var likeElement = document.querySelector('.coreSpriteLikeHeartOpen');
 var nextElement = document.querySelector('.coreSpriteRightPaginationArrow');
 var likeCount = 0;
 
