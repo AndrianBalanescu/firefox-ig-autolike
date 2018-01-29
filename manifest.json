@@ -10,7 +10,7 @@
 
     "manifest_version": 2,
     "name": "IG Autolike",
-    "version": "0.1.3",
+    "version": "0.1.4",
 
     "description": "Instagram auto like extension for Firefox.",
 
