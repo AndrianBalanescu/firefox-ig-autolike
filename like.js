@@ -5,12 +5,12 @@ var usernameClassSelector = "._2g7d5";
 var likeCount = 0;
 var followCount = 0;
 
-function doLike(minTime, maxTime, enableFollow) {
+function doLike(minTime, maxTime, enableFollow, followsPercentage) {
     scheduleGoToNextPhoto();
-    scheduleNextLike(minTime, maxTime, enableFollow);
+    scheduleNextLike(minTime, maxTime, enableFollow, followsPercentage);
     like();
     if (enableFollow) {
-        follow();
+        follow(followsPercentage);
     }
 }
 
@@ -20,9 +20,10 @@ function like() {
     console.log('Liked ' + likeCount);
 }
 
-function follow() {
+function follow(followsPercentage) {
     var random = generateRandomInteger(0, 100);
-    if (random > 50) {
+    console.log("Random: " + random + " vincolo " + ( 10 * (10 - followsPercentage)));
+    if (random > 10 * (10 - followsPercentage)) {
         document.querySelector(followButtonClassSelector).click();
         followCount++;
         var name = document.querySelector(usernameClassSelector).textContent;
@@ -36,11 +37,11 @@ function scheduleGoToNextPhoto() {
     }, 2000);
 }
 
-function scheduleNextLike(minTime, maxTime, enableFollow) {
+function scheduleNextLike(minTime, maxTime, enableFollow, followsPercentage) {
     var nextTime = generateRandomInteger(minTime, maxTime);
     console.log("Like again in " + nextTime + " ms (" + minTime + " - " + maxTime + ")");
     setTimeout(function () {
-        doLike(minTime, maxTime, enableFollow);
+        doLike(minTime, maxTime, enableFollow, followsPercentage);
     }, nextTime);
 }
 
@@ -54,6 +55,7 @@ function onGot(item) {
     var minTime = 3000;
     var maxTime = 15000;
     var enableFollow = false;
+    var followsPercentage = 5;
     if (item && item.times && item.times.minTime) {
         minTime = parseInt(item.times.minTime);
     }
@@ -63,8 +65,10 @@ function onGot(item) {
     if (item && item.times && item.times.enableFollow) {
         enableFollow = item.times.enableFollow;
     }
-    console.log("enableFollow is " + enableFollow);
-    doLike(minTime, maxTime, enableFollow);
+    if (item && item.times && item.times.followsPercentage) {
+        followsPercentage = item.times.followsPercentage;
+    }
+    doLike(minTime, maxTime, enableFollow, followsPercentage);
 }
 
 function generateRandomInteger(min, max) {

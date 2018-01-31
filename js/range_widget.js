@@ -24,7 +24,7 @@ var getTrackStyle = function (el) {
     }
 
     return style;
-}
+};
 
 $rangeInput.on('input', function () {
     sheet.textContent = getTrackStyle(this);
