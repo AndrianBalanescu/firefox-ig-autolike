@@ -4,27 +4,81 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/options.css">
+    <link rel="stylesheet" type="text/css" href="../css/range_widget.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous">
+    </script>
 </head>
 
 <body>
 
     <form>
-        <label for="minTime">Min like time: </label>
-        <input type="text" name="minTime" id="minTime">
-        <br>
+        <fieldset>
+            <legend>Times</legend>
+            <table>
+                <tr>
+                    <td>
+                        <label for="minTime">Min like time (ms): </label>
+                    </td>
+                    <td>
+                        <input type="text" name="minTime" id="minTime">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="maxTime">Max like time (ms):</label>
+                    </td>
+                    <td>
+                        <input type="text" name="maxTime" id="maxTime">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
 
-        <label for="maxTime">Max like time:</label>
-        <input type="text" name="maxTime" id="maxTime">
-        <br>
+        <fieldset>
+            <legend>Random follows</legend>
+            <table>
+                <tr>
+                    <td>
+                        <label for="enableFollow">Enable random follow:</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="enableFollow" id="enableFollow">
+                    </td>
+                </tr>
 
-        <label for="enableFollow">Enable random follow:</label>
-        <input type="checkbox" name="enableFollow" id="enableFollow">
-        <br>
+                <tr>
+                    <td>
+                        <label for="followsPercentage">Percentage of follows:</label>
+                    </td>
+                    <td>
+                        <div style="margin: 20px;">
+                            <div class="range">
+                                <input type="range" name="followsPercentage" id="followsPercentage" min="1" max="10" steps="1" value="1">
+                            </div>
+                            <ul class="range-labels">
+                                <li class="active selected">10 %</li>
+                                <li>20 %</li>
+                                <li>30 %</li>
+                                <li>40 %</li>
+                                <li>50 %</li>
+                                <li>60 %</li>
+                                <li>70 %</li>
+                                <li>80 %</li>
+                                <li>90 %</li>
+                                <li>100 %</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
 
         <button type="submit">Save</button>
     </form>
 
-    <script src="../options.js"></script>
+    <script src="../js/options.js"></script>
+    <script src="../js/range_widget.js"></script>
 
 </body>
 

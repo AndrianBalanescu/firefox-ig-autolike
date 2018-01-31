@@ -1,0 +1,27 @@
+label {
+    font-weight: bold;
+    color: #000000;
+}
+
+button[type=submit] {
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 16px;
+}
+
+fieldset {
+    border: 0.5px solid #dbdbdb;
+    margin-bottom: 2em;
+}
+
+legend {
+    color: #000000;
+    text-transform: uppercase;
+}
+
+td:last-child {
+    padding-left: 40px;
+}
