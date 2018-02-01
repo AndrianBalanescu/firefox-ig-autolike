@@ -5,7 +5,6 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/options.css">
-    <link rel="stylesheet" type="text/css" href="../css/range_widget.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous">
     </script>
@@ -53,24 +52,7 @@
                     <label for="followsPercentage">Percentage of follows:</label>
                 </td>
                 <td>
-                    <div style="margin: 20px;">
-                        <div class="range">
-                            <input type="range" name="followsPercentage" id="followsPercentage" min="1" max="10"
-                                   step="1" value="1">
-                        </div>
-                        <ul class="range-labels">
-                            <li class="active selected">10 %</li>
-                            <li>20 %</li>
-                            <li>30 %</li>
-                            <li>40 %</li>
-                            <li>50 %</li>
-                            <li>60 %</li>
-                            <li>70 %</li>
-                            <li>80 %</li>
-                            <li>90 %</li>
-                            <li>100 %</li>
-                        </ul>
-                    </div>
+                    <input type="number" name="followsPercentage" id="followsPercentage" min="0" max="100">
                 </td>
             </tr>
         </table>
@@ -80,7 +62,6 @@
 </form>
 
 <script src="../js/options.js"></script>
-<script src="../js/range_widget.js"></script>
 
 </body>
 

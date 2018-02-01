@@ -16,7 +16,7 @@ function restoreOptions() {
         document.querySelector("#minTime").value = result.times.minTime || "3000";
         document.querySelector("#maxTime").value = result.times.maxTime || "15000";
         document.querySelector("#enableFollow").checked = result.times.enableFollow || false;
-        document.querySelector("#followsPercentage").value = result.times.followsPercentage || 5;
+        document.querySelector("#followsPercentage").value = result.times.followsPercentage || 50;
     }
 
     function onError(error) {

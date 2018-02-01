@@ -22,8 +22,8 @@ function like() {
 
 function follow(followsPercentage) {
     var random = generateRandomInteger(0, 100);
-    console.log("Random: " + random + " vincolo " + ( 10 * (10 - followsPercentage)));
-    if (random > 10 * (10 - followsPercentage)) {
+    console.log("Random: " + random + " vincolo " + ((100 - followsPercentage)));
+    if (random > (100 - followsPercentage)) {
         document.querySelector(followButtonClassSelector).click();
         followCount++;
         var name = document.querySelector(usernameClassSelector).textContent;
@@ -55,7 +55,7 @@ function onGot(item) {
     var minTime = 3000;
     var maxTime = 15000;
     var enableFollow = false;
-    var followsPercentage = 5;
+    var followsPercentage = 50;
     if (item && item.times && item.times.minTime) {
         minTime = parseInt(item.times.minTime);
     }
@@ -66,7 +66,7 @@ function onGot(item) {
         enableFollow = item.times.enableFollow;
     }
     if (item && item.times && item.times.followsPercentage) {
-        followsPercentage = item.times.followsPercentage;
+        followsPercentage = parseInt(item.times.followsPercentage);
     }
     doLike(minTime, maxTime, enableFollow, followsPercentage);
 }
