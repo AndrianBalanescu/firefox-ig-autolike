@@ -1,6 +1,6 @@
 function saveOptions(e) {
     browser.storage.local.set({
-        times: {
+        prefs: {
             minTime: document.querySelector("#minTime").value,
             maxTime: document.querySelector("#maxTime").value,
             enableFollow: document.querySelector("#enableFollow").checked,
@@ -12,19 +12,17 @@ function saveOptions(e) {
 function restoreOptions() {
 
     function setCurrentChoice(result) {
-        console.log("Result.times: " + result.times);
-        document.querySelector("#minTime").value = result.times.minTime || "3000";
-        document.querySelector("#maxTime").value = result.times.maxTime || "15000";
-        document.querySelector("#enableFollow").checked = result.times.enableFollow || false;
-        document.querySelector("#followsPercentage").value = result.times.followsPercentage || 50;
+        document.querySelector("#minTime").value = result.prefs.minTime || "3000";
+        document.querySelector("#maxTime").value = result.prefs.maxTime || "15000";
+        document.querySelector("#enableFollow").checked = result.prefs.enableFollow || false;
+        document.querySelector("#followsPercentage").value = result.prefs.followsPercentage || 50;
     }
 
     function onError(error) {
-        console.log("Error: " + error);
-        setCurrentChoice({"times":{}})
+        setCurrentChoice({"prefs":{}})
     }
 
-    var getting = browser.storage.local.get("times");
+    var getting = browser.storage.local.get("prefs");
     getting.then(setCurrentChoice, onError);
 }
 

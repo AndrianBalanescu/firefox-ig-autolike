@@ -5,12 +5,12 @@ var usernameClassSelector = "._2g7d5";
 var likeCount = 0;
 var followCount = 0;
 
-function doLike(minTime, maxTime, enableFollow, followsPercentage) {
+function doLike(prefs) {
     scheduleGoToNextPhoto();
-    scheduleNextLike(minTime, maxTime, enableFollow, followsPercentage);
+    scheduleNextLike(prefs);
     like();
-    if (enableFollow) {
-        follow(followsPercentage);
+    if (prefs.enableFollow) {
+        follow(prefs.followsPercentage);
     }
 }
 
@@ -37,11 +37,11 @@ function scheduleGoToNextPhoto() {
     }, 2000);
 }
 
-function scheduleNextLike(minTime, maxTime, enableFollow, followsPercentage) {
-    var nextTime = generateRandomInteger(minTime, maxTime);
-    console.log("Like again in " + nextTime + " ms (" + minTime + " - " + maxTime + ")");
+function scheduleNextLike(prefs) {
+    var nextTime = generateRandomInteger(prefs.minTime, prefs.maxTime);
+    console.log("Like again in " + nextTime + " ms (" + prefs.minTime + " - " + prefs.maxTime + ")");
     setTimeout(function () {
-        doLike(minTime, maxTime, enableFollow, followsPercentage);
+        doLike(prefs);
     }, nextTime);
 }
 
@@ -50,30 +50,32 @@ function onError(error) {
 }
 
 function onGot(item) {
-    console.log("onGot!!");
-    console.log("pars: " + item.times);
-    var minTime = 3000;
-    var maxTime = 15000;
-    var enableFollow = false;
-    var followsPercentage = 50;
-    if (item && item.times && item.times.minTime) {
-        minTime = parseInt(item.times.minTime);
+    var prefs = {
+        "minTime": 3000,
+        "maxTime": 15000,
+        "enableFollow": false,
+        "followsPercentage": 50
+    };
+    if (item && item.prefs) {
+        if (item.prefs.minTime) {
+            prefs.minTime = parseInt(item.prefs.minTime);
+        }
+        if (item.prefs.maxTime) {
+            prefs.maxTime = parseInt(item.prefs.maxTime);
+        }
+        if (item.prefs.enableFollow) {
+            prefs.enableFollow = item.prefs.enableFollow;
+        }
+        if (item.prefs.followsPercentage) {
+            prefs.followsPercentage = parseInt(item.prefs.followsPercentage);
+        }
     }
-    if (item && item.times && item.times.maxTime) {
-        maxTime = parseInt(item.times.maxTime);
-    }
-    if (item && item.times && item.times.enableFollow) {
-        enableFollow = item.times.enableFollow;
-    }
-    if (item && item.times && item.times.followsPercentage) {
-        followsPercentage = parseInt(item.times.followsPercentage);
-    }
-    doLike(minTime, maxTime, enableFollow, followsPercentage);
+    doLike(prefs);
 }
 
 function generateRandomInteger(min, max) {
     return min + Math.floor(Math.random() * (max + 1 - min))
 }
 
-var getting = browser.storage.local.get("times");
+var getting = browser.storage.local.get("prefs");
 getting.then(onGot, onError);
