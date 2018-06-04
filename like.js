@@ -1,7 +1,7 @@
-var likeElement = document.querySelector('.coreSpriteLikeHeartOpen, .coreSpriteHeartOpen');
-var nextElement = document.querySelector('.coreSpriteRightPaginationArrow');
-var followButtonClassSelector = "._njrw0";
-var usernameClassSelector = "._2g7d5";
+var likeElement = document.querySelector('.ptsdu');
+var nextElement = document.querySelector('._1bdSS');
+var followButtonClassSelector = ".n_COB";
+var usernameClassSelector = ".nJAzx";
 var likeCount = 0;
 var followCount = 0;
 
