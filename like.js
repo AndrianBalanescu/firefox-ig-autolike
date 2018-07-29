@@ -1,6 +1,6 @@
-var likeElement = document.querySelector('.ptsdu');
-var nextElement = document.querySelector('._1bdSS');
-var followButtonClassSelector = ".n_COB";
+var likeElement = document.querySelector('.coreSpriteLikeHeartOpen, .coreSpriteHeartOpen, .ptsdu');
+var nextElement = document.querySelector('.coreSpriteRightPaginationArrow, ._1bdSS');
+var followButtonClassSelector = ".oW_lN";
 var usernameClassSelector = ".nJAzx";
 var likeCount = 0;
 var followCount = 0;
