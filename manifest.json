@@ -8,14 +8,15 @@
   },
   "manifest_version": 2,
   "name": "IG Autolike",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Instagram auto like extension for Firefox.",
   "icons": {
     "48": "icons/ig_logo.png"
   },
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "notifications"
   ],
   "background": {
     "scripts": [

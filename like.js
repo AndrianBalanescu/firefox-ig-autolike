@@ -13,8 +13,8 @@ prefs.then(loadPrefs, onError);
 
 function loadPrefs(item) {
   var prefs = {
-    "minTime": 3000,
-    "maxTime": 15000,
+    "minTime": 15000,
+    "maxTime": 30000,
     "enableFollow": false,
     "followsPercentage": 50,
     "checkFollowersRatio": false,
@@ -40,7 +40,12 @@ function loadPrefs(item) {
       prefs.followersRatio = parseFloat(item.prefs.followersRatio);
     }
   }
-  startBot(prefs);
+  
+  var ok = checkIfPageIsBotableAndNotifyUser();
+  console.log("ok: " + ok);
+  if (ok) {
+    startBot(prefs);
+  }
 }
 
 function onError(error) {
@@ -122,6 +127,14 @@ function scheduleGoToNextPhoto(prefs) {
   }, 1000);
 }
 
-function generateRandomInteger(min, max) {
-  return min + Math.floor(Math.random() * (max + 1 - min));
+function checkIfPageIsBotableAndNotifyUser() {
+  console.log("next");
+  console.log(nextElement);
+  if (nextElement !== null) {
+    notifyUser("Starting IG Autolike", "Page: " + document.title);
+    return true;
+  } else {
+    notifyUser("Unable to start IG Autolike", "Page: " + document.title);
+    return false;
+  }
 }

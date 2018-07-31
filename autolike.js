@@ -1,5 +1,8 @@
 function like() {
   chrome.tabs.executeScript(null, {
+    file: "js/utils/utils.js"
+  });
+  chrome.tabs.executeScript(null, {
     file: "js/utils/fetchers.js"
   });
   chrome.tabs.executeScript(null, {
@@ -11,3 +14,11 @@ function like() {
 }
 
 browser.browserAction.onClicked.addListener(like);
+
+browser.runtime.onMessage.addListener((message) => {
+  browser.notifications.create({
+    type: "basic",
+    title: message.title,
+    message: message.message
+  });
+});

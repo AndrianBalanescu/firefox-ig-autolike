@@ -14,8 +14,8 @@ function saveOptions(e) {
 function restoreOptions() {
 
     function setCurrentChoice(result) {
-        document.querySelector("#minTime").value = (result.prefs && result.prefs.minTime) || "3000";
-        document.querySelector("#maxTime").value = (result.prefs && result.prefs.maxTime) || "15000";
+        document.querySelector("#minTime").value = (result.prefs && result.prefs.minTime) || "15000";
+        document.querySelector("#maxTime").value = (result.prefs && result.prefs.maxTime) || "30000";
         document.querySelector("#enableFollow").checked = (result.prefs && result.prefs.enableFollow) || false;
         document.querySelector("#followsPercentage").value = (result.prefs && result.prefs.followsPercentage) || 50;
         document.querySelector("#checkFollowersRatio").checked = (result.prefs && result.prefs.checkFollowersRatio) || false;
