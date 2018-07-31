@@ -4,7 +4,9 @@ function saveOptions(e) {
             minTime: document.querySelector("#minTime").value,
             maxTime: document.querySelector("#maxTime").value,
             enableFollow: document.querySelector("#enableFollow").checked,
-            followsPercentage: document.querySelector("#followsPercentage").value
+            followsPercentage: document.querySelector("#followsPercentage").value,
+            checkFollowersRatio: document.querySelector("#checkFollowersRatio").checked,
+            followersRatio: document.querySelector("#followersRatio").value
         }
     });
 }
@@ -16,6 +18,8 @@ function restoreOptions() {
         document.querySelector("#maxTime").value = (result.prefs && result.prefs.maxTime) || "15000";
         document.querySelector("#enableFollow").checked = (result.prefs && result.prefs.enableFollow) || false;
         document.querySelector("#followsPercentage").value = (result.prefs && result.prefs.followsPercentage) || 50;
+        document.querySelector("#checkFollowersRatio").checked = (result.prefs && result.prefs.checkFollowersRatio) || false;
+        document.querySelector("#followersRatio").value = (result.prefs && result.prefs.followersRatio) || 1;
     }
 
     function onError(error) {

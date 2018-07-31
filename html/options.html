@@ -3,62 +3,85 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="../css/options.css">
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../css/options.css">
 </head>
 
 <body>
 
-<form>
+  <form>
     <fieldset>
-        <legend>Times</legend>
-        <table>
-            <tr>
-                <td>
-                    <label for="minTime">Min like time (ms): </label>
-                </td>
-                <td>
-                    <input type="text" name="minTime" id="minTime">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="maxTime">Max like time (ms):</label>
-                </td>
-                <td>
-                    <input type="text" name="maxTime" id="maxTime">
-                </td>
-            </tr>
-        </table>
+      <legend>Times</legend>
+      <table>
+        <tr>
+          <td>
+            <label for="minTime">Min like time (ms): </label>
+          </td>
+          <td>
+            <input type="text" name="minTime" id="minTime">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="maxTime">Max like time (ms):</label>
+          </td>
+          <td>
+            <input type="text" name="maxTime" id="maxTime">
+          </td>
+        </tr>
+      </table>
     </fieldset>
 
     <fieldset>
-        <legend>Random follows</legend>
-        <table>
-            <tr>
-                <td>
-                    <label for="enableFollow">Enable random follow:</label>
-                </td>
-                <td>
-                    <input type="checkbox" name="enableFollow" id="enableFollow">
-                </td>
-            </tr>
+      <legend>Random follows</legend>
+      <table>
+        <tr>
+          <td>
+            <label for="enableFollow">Enable random follow:</label>
+          </td>
+          <td>
+            <input type="checkbox" name="enableFollow" id="enableFollow">
+          </td>
+        </tr>
 
-            <tr>
-                <td>
-                    <label for="followsPercentage">Percentage of follows:</label>
-                </td>
-                <td>
-                    <input type="number" name="followsPercentage" id="followsPercentage" min="0" max="100">
-                </td>
-            </tr>
-        </table>
+        <tr>
+          <td>
+            <label for="followsPercentage">Percentage of follows:</label>
+          </td>
+          <td>
+            <input type="number" name="followsPercentage" id="followsPercentage" min="0" max="100">
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Conditions</legend>
+      <table>
+        <tr>
+          <td>
+            <label for="checkFollowersRatio">Check Following/Followers ratio:</label>
+          </td>
+          <td>
+            <input type="checkbox" name="checkFollowersRatio" id="checkFollowersRatio">
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label for="followersRatio">Following/Followers ratio:</label>
+          </td>
+          <td>
+            <input type="number" name="followersRatio" id="followersRatio" step="0.01">
+          </td>
+        </tr>
+      </table>
     </fieldset>
 
     <button type="submit">Save</button>
-</form>
+  </form>
 
-<script src="../js/options.js"></script>
+  <script src="../js/options.js"></script>
 
 </body>
 
