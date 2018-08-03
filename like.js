@@ -27,10 +27,11 @@
       if (window.botRunning) load(); // Load and start the bot
     } else if (message.command === "requestBotStatus") {
       var botStatus = {
-        botRunning: window.botRunning,
+        botRunning: window.botRunning || false,
         likeCount: likeCount,
-        followCount: likeCount
+        followCount: followCount
       };
+			console.log(botStatus);
       response(botStatus);
     }
   });

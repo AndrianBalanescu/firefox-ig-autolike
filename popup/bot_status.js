@@ -29,8 +29,7 @@ browser.tabs.query({
  * the content script in the page.
  */
 function listenForClicks() {
-  document.addEventListener("click", (e) => {
-
+  document.addEventListener("change", (e) => {
     /**
      * send a "toggle" message to the content script in the active tab.
      */
@@ -44,9 +43,15 @@ function listenForClicks() {
      * Get the active tab, send a "toggle" message and update the view.
      */
     if (e.target.id === "startButton") {
-      loadStatus({ // Update popup views
-        botRunning: !botInfo.botRunning
-      });
+			console.log("status: ");
+			console.log(botInfo);
+			var newStatus = {
+        botRunning: !botInfo.botRunning,
+				likeCount: 0,
+				followCount: 0
+      };
+			console.log(newStatus);
+      loadStatus(newStatus);// Update popup views
       browser.tabs.query({
           active: true,
           currentWindow: true
@@ -60,11 +65,16 @@ function listenForClicks() {
 function loadStatus(info) {
   botInfo = info;
   var status = "Stopped";
-  var action = "Start";
-  if (botInfo.botRunning) {
+	var checked = false;
+	var statsVisibility = "none";
+  if (info.botRunning) {
     status = "Started";
-    action = "Stop";
+		checked = true;
+		statsVisibility = "block";
   }
-  document.querySelector("#status").innerHTML = "Status: " + status;
-  document.querySelector("#startButton").value = action;
+  document.querySelector("#status").innerHTML = status;
+  document.querySelector("#startButton").checked = checked;
+	document.querySelector("#stats-container").style.display = statsVisibility;
+  document.querySelector("#liked-number").innerHTML = info.likeCount || 0;
+  document.querySelector("#followed-number").innerHTML = info.followCount || 0;
 }

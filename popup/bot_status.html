@@ -5,13 +5,33 @@
 <head>
 	<title>IG-Autolike</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="choose_beast.css" />
+	<link rel="stylesheet" type="text/css" href="bot_status.css" />
 </head>
 
 <body>
 	<div id="popup-content">
-		<input type="button" id="startButton" value="Start" />
-		<div id="status">Status: stopped</div>
+		<!-- Rounded switch -->
+		<div id="switch-container">
+			<label class="switch">
+			  <input type="checkbox" id="startButton" value="Start"/>
+				<span class="slider round"></span>
+			</label>
+		</div>
+		<div id="status">Stopped</div>
+
+		<!-- statistics -->
+		<div id="stats-container" style="display:none;">
+			<table style="width:100%">
+				<tr>
+					<td class="stats-title">Liked</td>
+					<td class="stats-value"><span id="liked-number">0</span></td>
+				</tr>
+				<tr>
+					<td class="stats-title">Followed</td>
+					<td class="stats-value"><span id="followed-number">0</span></td>
+				</tr>
+			</table>
+		</div>
 	</div>
 
 	<script src="bot_status.js"></script>
