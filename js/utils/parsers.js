@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: "off" */
+
 function parseUser(responseJson){
   return responseJson.graphql.user;
 }

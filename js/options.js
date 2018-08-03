@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: "off" */
+
 function saveOptions(e) {
     browser.storage.local.set({
         prefs: {

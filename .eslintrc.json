@@ -1,0 +1,23 @@
+{
+  "env": {
+    "browser": true,
+    "jquery": true,
+    "webextensions": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "rules": {
+    "no-console": 0
+  },
+  "globals": {
+    "getProfileJson": true,
+    "parseFollowers": true,
+    "parseFollowing": true,
+    "parseUsername": true,
+    "generateRandomInteger": true,
+    "notifyUser": true,
+    "getPrefs": true
+  }
+}

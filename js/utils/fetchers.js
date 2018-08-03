@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: "off" */
+
 function getProfileJson(username) {
   return fetch('https://www.instagram.com/' + username + '/?__a=1')
     .then(function(response) {
