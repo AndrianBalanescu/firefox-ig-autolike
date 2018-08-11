@@ -21,7 +21,9 @@ browser.tabs.query({
   browser.tabs.sendMessage(
     tabs[0].id, {
       command: "requestBotStatus"
-    }, loadStatus /* callback */ );
+    })
+		.then(loadStatus)
+		.catch(error => console.log(error));
 });
 
 /**
@@ -43,15 +45,15 @@ function listenForClicks() {
      * Get the active tab, send a "toggle" message and update the view.
      */
     if (e.target.id === "startButton") {
-			console.log("status: ");
-			console.log(botInfo);
-			var newStatus = {
+      console.log("status: ");
+      console.info(JSON.stringify(botInfo, null, 4));
+      var newStatus = {
         botRunning: !botInfo.botRunning,
-				likeCount: 0,
-				followCount: 0
+        likeCount: 0,
+        followCount: 0
       };
-			console.log(newStatus);
-      loadStatus(newStatus);// Update popup views
+      console.log(newStatus);
+      loadStatus(newStatus); // Update popup views
       browser.tabs.query({
           active: true,
           currentWindow: true
@@ -65,16 +67,26 @@ function listenForClicks() {
 function loadStatus(info) {
   botInfo = info;
   var status = "Stopped";
-	var checked = false;
-	var statsVisibility = "none";
+  var checked = false;
+  var statsVisibility = "none";
   if (info.botRunning) {
     status = "Started";
-		checked = true;
-		statsVisibility = "block";
+    checked = true;
+    statsVisibility = "block";
   }
-  document.querySelector("#status").innerHTML = status;
-  document.querySelector("#startButton").checked = checked;
-	document.querySelector("#stats-container").style.display = statsVisibility;
-  document.querySelector("#liked-number").innerHTML = info.likeCount || 0;
-  document.querySelector("#followed-number").innerHTML = info.followCount || 0;
+
+	const statusElem = document.querySelector("#status");
+	if (statusElem != null) statusElem.innerHTML = status;
+
+	const startButtonElem = document.querySelector("#startButton");
+	if(startButtonElem != null) startButtonElem.checked = checked;
+
+	const statsContainerElem = document.querySelector("#stats-container");
+	if(statsContainerElem != null) statsContainerElem.style.display = statsVisibility;
+
+	const likedNumberElem = document.querySelector("#liked-number");
+	if(likedNumberElem != null) likedNumberElem.innerHTML = info.likeCount || 0;
+
+	const followedNumberElemen = document.querySelector("#followed-number");
+	if(followedNumberElemen != null) followedNumberElemen.innerHTML = info.followCount || 0;
 }

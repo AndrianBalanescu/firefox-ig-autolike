@@ -8,7 +8,7 @@
   },
   "manifest_version": 2,
   "name": "IG Autolike",
-  "version": "0.1.8",
+  "version": "0.1.8.1",
   "description": "Instagram auto like extension for Firefox.",
   "homepage_url": "https://github.com/vinsce/firefox-ig-autolike",
   "icons": {

@@ -25,13 +25,16 @@
     if (message.command === "toggle") {
       window.botRunning = !window.botRunning; // Setting botRunning = false stops the bot
       if (window.botRunning) load(); // Load and start the bot
-    } else if (message.command === "requestBotStatus") {
+    }
+		else if (message.command === "requestBotStatus") {
+			var botRunning = window.botRunning || false;
+			console.info("botRunning: " + botRunning);
       var botStatus = {
-        botRunning: window.botRunning || false,
+        botRunning: botRunning,
         likeCount: likeCount,
         followCount: followCount
       };
-			console.log(botStatus);
+			console.info(JSON.stringify(botStatus, null, 4));
       response(botStatus);
     }
   });
