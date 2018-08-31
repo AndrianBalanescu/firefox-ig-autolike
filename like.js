@@ -91,7 +91,12 @@
             // Not ok, skip to next photo
             goToNextPage(prefs);
           }
-        });
+        })
+				.catch(function(error) {
+					// If it's impossible to fetch the user's profile -> no check and schedule actions
+					console.log(error);
+					scheduleActionsOnCurrentPage(prefs);
+				});
       } else { // No need to check followers ratio. Just schedule operations
         scheduleActionsOnCurrentPage(prefs);
       }
@@ -134,6 +139,11 @@
               stopBot();
             }
           })
+					.catch(function(error){
+						console.log(error);
+						nextElement.click();
+						startBot(prefs);
+					});
       }
     }
 
