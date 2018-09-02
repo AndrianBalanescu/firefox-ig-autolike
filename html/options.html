@@ -55,6 +55,37 @@
       </table>
     </fieldset>
 
+		<fieldset>
+			<legend>Random comments</legend>
+			<table>
+				<tr>
+					<td>
+						<label for="enableComment">Enable comments:</label>
+					</td>
+					<td>
+						<input type="checkbox" name="enableComment" id="enableComment">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<label for="commentPercentage">Percentage of comments:</label>
+					</td>
+					<td>
+						<input type="number" name="commentPercentage" id="commentPercentage" step="0.01">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="commentText">Comment text:<br>One comment per line<br>Use {username} to include the username of the current user</label>
+					</td>
+					<td>
+						<textarea name="commentText" id="commentText" min="0" max="100" rows="4" cols="100"></textarea>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+
     <fieldset>
       <legend>Conditions</legend>
       <table>

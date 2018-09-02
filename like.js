@@ -8,6 +8,7 @@
   // Statistics
   var likeCount = 0;
   var followCount = 0;
+  var commentsCount = 0;
 
   /**
    * Check and set a global guard variable.
@@ -25,21 +26,21 @@
     if (message.command === "toggle") {
       window.botRunning = !window.botRunning; // Setting botRunning = false stops the bot
       if (window.botRunning) load(); // Load and start the bot
-    }
-		else if (message.command === "requestBotStatus") {
-			var botRunning = window.botRunning || false;
-			console.info("botRunning: " + botRunning);
+    } else if (message.command === "requestBotStatus") {
+      var botRunning = window.botRunning || false;
+      console.info("botRunning: " + botRunning);
       var botStatus = {
         botRunning: botRunning,
         likeCount: likeCount,
-        followCount: followCount
+        followCount: followCount,
+        commentsCount: commentsCount
       };
-			console.info(JSON.stringify(botStatus, null, 4));
+      console.info(JSON.stringify(botStatus, null, 4));
       response(botStatus);
     }
   });
 
-	// Send message to runtime script so it can load utils function
+  // Send message to runtime script so it can load utils function
   browser.runtime.sendMessage({
     command: "inject"
   });
@@ -62,6 +63,7 @@
      * startBot() starts a single bot "iteration"
      */
     function startBot(prefs) {
+      console.log(prefs);
       // First check if botRunning = true. If it's false return.
       if (window.botRunning) {
         setTimeout(function() {
@@ -80,31 +82,31 @@
       if (prefs.checkFollowersRatio) { // If should check following/followers ratio
         getProfileJson(username).then(function(profileJson) { // retrive the json of the user
 
-          var followers = parseFollowers(profileJson),
-            following = parseFollowing(profileJson);
-          var currentFollowersRatio = following / followers;
+            var followers = parseFollowers(profileJson),
+              following = parseFollowing(profileJson);
+            var currentFollowersRatio = following / followers;
 
-          if (currentFollowersRatio >= prefs.followersRatio) {
-            // OK, like the current photo
+            if (currentFollowersRatio >= prefs.followersRatio) {
+              // OK, like the current photo
+              scheduleActionsOnCurrentPage(prefs);
+            } else {
+              // Not ok, skip to next photo
+              goToNextPage(prefs);
+            }
+          })
+          .catch(function(error) {
+            // If it's impossible to fetch the user's profile -> no check and schedule actions
+            console.log(error);
             scheduleActionsOnCurrentPage(prefs);
-          } else {
-            // Not ok, skip to next photo
-            goToNextPage(prefs);
-          }
-        })
-				.catch(function(error) {
-					// If it's impossible to fetch the user's profile -> no check and schedule actions
-					console.log(error);
-					scheduleActionsOnCurrentPage(prefs);
-				});
+          });
       } else { // No need to check followers ratio. Just schedule operations
         scheduleActionsOnCurrentPage(prefs);
       }
     }
 
-		/**
-		 * Check if the bot can be run on the current page and notify the user.
-		 */
+    /**
+     * Check if the bot can be run on the current page and notify the user.
+     */
     function checkIfPageIsBotableAndNotifyUser() {
       var nextElement = document.querySelector(nextElementClassSelector);
 
@@ -139,11 +141,11 @@
               stopBot();
             }
           })
-					.catch(function(error){
-						console.log(error);
-						nextElement.click();
-						startBot(prefs);
-					});
+          .catch(function(error) {
+            console.log(error);
+            nextElement.click();
+            startBot(prefs);
+          });
       }
     }
 
@@ -168,11 +170,21 @@
      * Then schedule "go to next photo"
      */
     function performActionsOnCurrentPage(prefs) {
+      var username = document.querySelector(usernameClassSelector).textContent;
+
       if (!window.botRunning) return;
+
+      if (prefs.enableComment) {
+        console.log("Commenti attivi, random comment. " + prefs.commentText);
+        comment(prefs.commentPercentage || 50, prefs.commentText, username);
+      }
+
       like();
+
       if (prefs.enableFollow) {
         follow(prefs.followsPercentage);
       }
+
       scheduleGoToNextPhoto(prefs);
     }
 
@@ -203,6 +215,71 @@
       }
     }
 
+    function comment(commentPercentage, commentTexts, username) {
+      var random = generateRandomInteger(0, 100);
+      if (random > (100 - commentPercentage)) {
+        commentsCount++;
+        fetch(window.location.href.split('?')[0] + '?__a=1')
+          .then(function(response) {
+            return response.json();
+          }).then((mediaJson) => {
+            const mediaId = mediaJson.graphql.shortcode_media.id;
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("HEAD", "https://www.instagram.com", true);
+            xhttp.send();
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                var commentText = commentTexts[Math.floor(Math.random() * commentTexts.length)];
+                commentText = commentText.replace(/{username}/g, "@" + username);
+                console.log("token: " + getCookie("csrftoken"));
+                /*browser.runtime.sendMessage({
+                  command: "comment",
+                  mediaId: mediaId,
+                  commentText: commentText,
+                  csrftoken: getCookie("csrftoken")
+                });*/
+
+                const headers = {
+                  "Content-type": "application/x-www-form-urlencoded",
+                  "X-Requested-With": "XMLHttpRequest",
+                  "X-CSRFToken": getCookie("csrftoken"),
+                  "X-Instagram-AJAX": "1",
+                  //"Host": 'www.instagram.com',
+                  //"Origin": 'https://www.instagram.com',
+                  //"Referer": 'https://www.instagram.com/'
+                };
+                console.log(headers);
+                content.fetch("https://www.instagram.com/web/comments/" + mediaId + "/add/", {
+                    headers: headers,
+                    body: "comment_text=" + commentText + "&replied_to_comment_id=",
+                    method: "POST"
+                  }).then(res => console.log(res))
+                  .catch(error => console.log(error))
+
+
+                /*var xhttp2 = new content.XMLHttpRequest();
+                xhttp2.open("POST", "https://www.instagram.com/web/comments/" + mediaId + "/add/", true);
+                xhttp2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp2.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+                xhttp2.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                xhttp2.setRequestHeader("X-Instagram-AJAX", "1");
+								//xhttp2.setRequestHeader('Host', 'www.instagram.com');
+								//xhttp2.setRequestHeader("Origin", 'https://www.instagram.com');
+								//xhttp2.setRequestHeader('Referer', 'https://www.instagram.com/');
+                console.log(xhttp2);
+                xhttp2.onreadystatechange = function() {
+                  console.log(xhttp2)
+                };
+                xhttp2.send("comment_text=" + commentText + "&replied_to_comment_id=");*/
+                console.log("Commented " + commentText + " to " + username + " (" + commentsCount + ")");
+              }
+            };
+          }).catch((err) => {
+            console.log(err);
+          });
+      }
+    }
+
     /**
      * Wait 1 second and go to next photo
      */
@@ -212,19 +289,19 @@
       }, 1000);
     }
 
-		/**
-		 * Set botRunning to false to label the bot as stopped and notify the user.
-		 */
+    /**
+     * Set botRunning to false to label the bot as stopped and notify the user.
+     */
     function stopBot() {
       console.log("stopping")
       window.botRunning = false;
       notifyUser("IG Autolike stopped", "Page: " + document.title);
     }
 
-		/**
-		 * If the element received is null stop the bot.
-		 * Otherwise return true
-		 */
+    /**
+     * If the element received is null stop the bot.
+     * Otherwise return true
+     */
     function checkElementOrStop(element) {
       if (element != null) {
         return true;

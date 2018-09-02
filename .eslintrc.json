@@ -18,6 +18,7 @@
     "parseUsername": true,
     "generateRandomInteger": true,
     "notifyUser": true,
-    "getPrefs": true
+    "getPrefs": true,
+		"getCookie": true
   }
 }

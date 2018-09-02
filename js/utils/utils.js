@@ -18,7 +18,10 @@ function getPrefs(item){
     "enableFollow": false,
     "followsPercentage": 50,
     "checkFollowersRatio": false,
-    "followersRatio": 1
+    "followersRatio": 1,
+		"enableComment": false,
+		"commentPercentage": 30,
+		"commentText": ["Amazing post {username}!"]
   };
   if (item && item.prefs) {
     if (item.prefs.minTime) {
@@ -39,7 +42,33 @@ function getPrefs(item){
     if (item.prefs.followersRatio) {
       prefs.followersRatio = parseFloat(item.prefs.followersRatio);
     }
+		if (item.prefs.enableComment) {
+      prefs.enableComment = item.prefs.enableComment;
+    }
+		if (item.prefs.commentPercentage) {
+      prefs.commentPercentage = parseInt(item.prefs.commentPercentage);
+    }
+		if(item.prefs.commentText) {
+			prefs.commentText = item.prefs.commentText.split("\n");
+		}
   }
 
   return prefs;
+}
+
+function getCookie(cname) {
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			console.log(c.substring(name.length, c.length))
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
 }

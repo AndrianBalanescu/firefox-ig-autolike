@@ -19,11 +19,11 @@ browser.tabs.query({
   currentWindow: true
 }, function(tabs) {
   browser.tabs.sendMessage(
-    tabs[0].id, {
-      command: "requestBotStatus"
-    })
-		.then(loadStatus)
-		.catch(error => console.log(error));
+      tabs[0].id, {
+        command: "requestBotStatus"
+      })
+    .then(loadStatus)
+    .catch(error => console.log(error));
 });
 
 /**
@@ -50,7 +50,8 @@ function listenForClicks() {
       var newStatus = {
         botRunning: !botInfo.botRunning,
         likeCount: 0,
-        followCount: 0
+        followCount: 0,
+        commentsCount: 0
       };
       console.log(newStatus);
       loadStatus(newStatus); // Update popup views
@@ -75,18 +76,21 @@ function loadStatus(info) {
     statsVisibility = "block";
   }
 
-	const statusElem = document.querySelector("#status");
-	if (statusElem != null) statusElem.innerHTML = status;
+  const statusElem = document.querySelector("#status");
+  if (statusElem != null) statusElem.innerHTML = status;
 
-	const startButtonElem = document.querySelector("#startButton");
-	if(startButtonElem != null) startButtonElem.checked = checked;
+  const startButtonElem = document.querySelector("#startButton");
+  if (startButtonElem != null) startButtonElem.checked = checked;
 
-	const statsContainerElem = document.querySelector("#stats-container");
-	if(statsContainerElem != null) statsContainerElem.style.display = statsVisibility;
+  const statsContainerElem = document.querySelector("#stats-container");
+  if (statsContainerElem != null) statsContainerElem.style.display = statsVisibility;
 
-	const likedNumberElem = document.querySelector("#liked-number");
-	if(likedNumberElem != null) likedNumberElem.innerHTML = info.likeCount || 0;
+  const likedNumberElem = document.querySelector("#liked-number");
+  if (likedNumberElem != null) likedNumberElem.innerHTML = info.likeCount || 0;
 
-	const followedNumberElemen = document.querySelector("#followed-number");
-	if(followedNumberElemen != null) followedNumberElemen.innerHTML = info.followCount || 0;
+  const followedNumberElem = document.querySelector("#followed-number");
+  if (followedNumberElem != null) followedNumberElem.innerHTML = info.followCount || 0;
+
+  const commentedNumberElem = document.querySelector("#commented-number");
+  if (commentedNumberElem != null) commentedNumberElem.innerHTML = info.commentsCount || 0;
 }
