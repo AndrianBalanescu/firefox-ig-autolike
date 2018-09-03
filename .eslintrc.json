@@ -19,6 +19,7 @@
     "generateRandomInteger": true,
     "notifyUser": true,
     "getPrefs": true,
-		"getCookie": true
+		"getCookie": true,
+		"content": true
   }
 }

@@ -20,7 +20,7 @@ function getPrefs(item){
     "checkFollowersRatio": false,
     "followersRatio": 1,
 		"enableComment": false,
-		"commentPercentage": 30,
+		"commentPercentage": 15,
 		"commentText": ["Amazing post {username}!"]
   };
   if (item && item.prefs) {

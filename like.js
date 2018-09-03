@@ -232,21 +232,12 @@
                 var commentText = commentTexts[Math.floor(Math.random() * commentTexts.length)];
                 commentText = commentText.replace(/{username}/g, "@" + username);
                 console.log("token: " + getCookie("csrftoken"));
-                /*browser.runtime.sendMessage({
-                  command: "comment",
-                  mediaId: mediaId,
-                  commentText: commentText,
-                  csrftoken: getCookie("csrftoken")
-                });*/
 
                 const headers = {
                   "Content-type": "application/x-www-form-urlencoded",
                   "X-Requested-With": "XMLHttpRequest",
                   "X-CSRFToken": getCookie("csrftoken"),
                   "X-Instagram-AJAX": "1",
-                  //"Host": 'www.instagram.com',
-                  //"Origin": 'https://www.instagram.com',
-                  //"Referer": 'https://www.instagram.com/'
                 };
                 console.log(headers);
                 content.fetch("https://www.instagram.com/web/comments/" + mediaId + "/add/", {
@@ -256,21 +247,6 @@
                   }).then(res => console.log(res))
                   .catch(error => console.log(error))
 
-
-                /*var xhttp2 = new content.XMLHttpRequest();
-                xhttp2.open("POST", "https://www.instagram.com/web/comments/" + mediaId + "/add/", true);
-                xhttp2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp2.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-                xhttp2.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
-                xhttp2.setRequestHeader("X-Instagram-AJAX", "1");
-								//xhttp2.setRequestHeader('Host', 'www.instagram.com');
-								//xhttp2.setRequestHeader("Origin", 'https://www.instagram.com');
-								//xhttp2.setRequestHeader('Referer', 'https://www.instagram.com/');
-                console.log(xhttp2);
-                xhttp2.onreadystatechange = function() {
-                  console.log(xhttp2)
-                };
-                xhttp2.send("comment_text=" + commentText + "&replied_to_comment_id=");*/
                 console.log("Commented " + commentText + " to " + username + " (" + commentsCount + ")");
               }
             };
