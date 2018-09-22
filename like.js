@@ -199,6 +199,7 @@
       likeElement.click();
       likeCount++;
       console.log('Liked ' + likeCount);
+			saveLog("like", "Liked photo: " + document.querySelector(usernameClassSelector).textContent, window.location.href)
     }
 
     /**

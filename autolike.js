@@ -11,6 +11,9 @@ function inject() {
   chrome.tabs.executeScript(null, {
     file: "js/utils/parsers.js"
   });
+  chrome.tabs.executeScript(null, {
+    file: "js/utils/logs.js"
+  });
 }
 
 browser.runtime.onMessage.addListener((message) => {
