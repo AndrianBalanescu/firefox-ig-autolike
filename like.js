@@ -3,6 +3,7 @@
   const likeElementClassSelector = '.coreSpriteLikeHeartOpen, .coreSpriteHeartOpen, .ptsdu';
   const nextElementClassSelector = '.coreSpriteRightPaginationArrow, ._1bdSS';
   const followButtonClassSelector = ".oW_lN";
+  const followButtonFollowingClassSelector = "_8A5w5";
   const usernameClassSelector = ".nJAzx";
 
   // Statistics
@@ -208,7 +209,10 @@
     function follow(followsPercentage) {
       var random = generateRandomInteger(0, 100);
       if (random > (100 - followsPercentage)) {
-        document.querySelector(followButtonClassSelector).click();
+        var followButton = document.querySelector(followButtonClassSelector);
+        if (followButton.classList.contains(followButtonFollowingClassSelector)) // Already following
+          return;
+        followButton.click();
         followCount++;
         var name = document.querySelector(usernameClassSelector).textContent;
         console.log("Followed " + name + " (" + followCount + ")");
