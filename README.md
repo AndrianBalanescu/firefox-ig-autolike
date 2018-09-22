@@ -1,7 +1,7 @@
 # firefox-ig-autolike
 Instagram Auto-like extension for Firefox written using Firefox WebExtensions APIs.
 
-1. Install the extension ( [web-ext-artifacts/ig_autolike-XXX.xpi](https://github.com/vinsce/firefox-ig-autolike/blob/master/web-ext-artifacts/ig_autolike-0.1.8.1.xpi) );
+1. Install the extension ( [web-ext-artifacts/ig_autolike-XXX.xpi](https://github.com/vinsce/firefox-ig-autolike/blob/master/web-ext-artifacts/latest.xpi) );
 2. Open a page in the form:
   * https://www.instagram.com/explore/tags/yazzy where **yazzy** is the tag of the photos you want to like; or
   * https://www.instagram.com/vinsce where **vinsce** is the username of the user you want to like
