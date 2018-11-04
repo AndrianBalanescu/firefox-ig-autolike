@@ -128,25 +128,8 @@
 
       if (checkElementOrStop(nextElement)) { // Check if "next" button is not null
         // If the button is available, try to fetch the next page and check the status code
-        fetch(nextElement.href, {
-            method: "HEAD"
-          })
-          .then(function(response) {
-            if (response.status == 200) {
-              // Ok, go to next page and start a new bot iteration
-              nextElement.click();
-              startBot(prefs);
-            } else {
-              // Error loading next page. Click next and stop the bot.
-              nextElement.click();
-              stopBot();
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-            nextElement.click();
-            startBot(prefs);
-          });
+        nextElement.click();
+        startBot(prefs);
       }
     }
 
