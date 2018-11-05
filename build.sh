@@ -1,6 +1,6 @@
 #!/bin/bash
 
-web-ext build
+web-ext build -i build.sh README.md
 for i in web-ext-artifacts/*.zip ; do
     mv "$i" "${i/.zip/.xpi}"
 done

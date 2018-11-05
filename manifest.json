@@ -2,13 +2,12 @@
   "applications": {
     "gecko": {
       "id": "igautolike@vinsce.me",
-      "strict_min_version": "42.0",
-      "strict_max_version": "*"
+      "strict_min_version": "42.0"
     }
   },
   "manifest_version": 2,
   "name": "IG Autolike",
-  "version": "0.1.9.2",
+  "version": "0.1.9.3",
   "description": "Instagram auto like extension for Firefox.",
   "homepage_url": "https://github.com/vinsce/firefox-ig-autolike",
   "icons": {
