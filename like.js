@@ -1,6 +1,7 @@
 (function() {
 
   const likeElementClassSelector = '.coreSpriteLikeHeartOpen, .coreSpriteHeartOpen, .ptsdu';
+  const outerLikeElementClassSelector = '.fr66n';
   const nextElementClassSelector = '.coreSpriteRightPaginationArrow, ._1bdSS';
   const followButtonClassSelector = ".oW_lN";
   const followButtonFollowingClassSelector = "_8A5w5";
@@ -231,7 +232,15 @@
      */
     function like() {
       var likeElement = document.querySelector(likeElementClassSelector);
-      if (!checkElementOrStop(likeElement)) return;
+      if(likeElement == null){
+        console.log('Like element is null. I\'ll try with outer like element')
+        var likeElementContainer = document.querySelector(outerLikeElementClassSelector);
+        if (!checkElementOrStop(likeElementContainer))
+          return;
+        likeElement = likeElementContainer.children[0];
+        if (!checkElementOrStop(likeElement))
+          return;
+      }
 
       likeElement.click();
       likeCount++;
